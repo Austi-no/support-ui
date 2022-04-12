@@ -1,0 +1,195 @@
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a>Home</a></li>
+    <li class="breadcrumb-item"><a>Support</a></li>
+    <li class="breadcrumb-item active">New Ticket</li>
+  </ol>
+</nav>
+<!--  -->
+
+
+<div class="row">
+
+  <div class="card-body">
+    <form class="needs-validation" [formGroup]="form">
+      <div class="container">
+        <div class="form-row mb-3">
+          <div class="col-md-3">
+            <h4>New Case</h4>
+          </div>
+          <div class="col-md-8">
+            <div class="alert alert-warning mb-2" role="alert">
+              <h4 class="alert-heading">Notice!</h4>
+              <p>Please don't upload or type any confidential information or personal data, such as logn credentials,
+                VPN
+                tokens, credit and debit card numbers. Personal information (such as employee HR records, Social
+                Security
+                Numbers), most accounting data, other highly sensitive or valuable proprietary information and PIN
+                codes.
+              </p>
+              <hr>
+              <p class="mb-0">Thank You!</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- .form-row -->
+      <div class="form-row mb-3">
+        <div class="col-md-3 mb-3">
+          <label>Case Type <abbr title="Required">*</abbr></label>
+        </div>
+
+        <div class="col-md-8">
+          <select class="custom-select custom-select" formControlName="caseType">
+            <option>Select Case Type</option>
+            <option *ngFor="let list of caseList" value="{{list.name}}">{{list.name}}</option>
+          </select>
+          <div class="valid-tooltip"> Looks good! </div>
+        </div>
+
+      </div>
+      <!-- .form-row -->
+
+      <!-- .form-row -->
+      <div class="form-row mb-3">
+        <div class="col-md-3 mb-3">
+          <label>Title <abbr title="Required">*</abbr></label>
+        </div>
+
+        <div class="col-md-8">
+          <input formControlName="title" type="text" class="form-control" placeholder="Enter Your Title">
+          <div class="valid-tooltip"> Looks good! </div>
+        </div>
+
+      </div>
+      <!-- .form-row -->
+
+      <!-- .form-row -->
+      <div class="form-row mb-3">
+        <div class="col-md-3 mb-3">
+          <label>Account Environment <abbr title="Required">*</abbr></label>
+        </div>
+
+        <div class="col-md-8  mb-3">
+          <select class="custom-select custom-select" formControlName="accountEnvironment">
+            <option>Select Environment</option>
+            <option value="Live">Live</option>
+            <option value="Development">Development</option>
+            <option value="Test">Test</option>
+            <option value="Training">Training</option>
+          </select>
+          <div class="valid-tooltip"> Looks good! </div>
+        </div>
+
+      </div>
+      <!-- .form-row -->
+
+      <!-- .form-row -->
+      <div class="form-row mb-3">
+        <div class="col-md-3 mb-3">
+          <label>Detailed Description<abbr title="Required">*</abbr></label>
+        </div>
+
+        <div class="col-md-8  mb-3">
+          <textarea formControlName="description" class="form-control" id="lbl4" rows="3"
+            placeholder="Enter the detailed description"></textarea>
+          <div class="valid-tooltip"> Looks good! </div>
+        </div>
+
+      </div>
+      <!-- .form-row -->
+
+      <!-- .form-row -->
+      <div class="form-row mb-3">
+        <div class="col-md-3 mb-3">
+          <label>Priority <abbr title="Required">*</abbr></label>
+        </div>
+
+        <div class="col-md-8  mb-3">
+          <select class="custom-select custom-select" formControlName="priority">
+            <option>Select Priority</option>
+            <option value="Business">Business</option>
+            <option value="Standstill">Standstill</option>
+            <option value="Urgent">Urgent</option>
+            <option value="Normal">Normal</option>
+          </select>
+          <div class="valid-tooltip"> Looks good! </div>
+        </div>
+
+      </div>
+      <!-- .form-row -->
+
+      <!-- .form-row -->
+      <div class="form-row mb-3">
+        <div class="col-md-3 mb-3">
+          <label>Customer Reference (Optional) </label>
+        </div>
+
+        <div class="col-md-8">
+          <input type="text" class="form-control" formControlName="customerReference"
+            placeholder="Enter Customer Reference">
+          <div class="valid-tooltip"> Looks good! </div>
+        </div>
+
+      </div>
+      <!-- .form-row -->
+
+      <!-- .form-row -->
+      <div class="form-row mb-3">
+        <div class="col-md-3 mb-3">
+          <label>Location <abbr title="Required">*</abbr></label>
+        </div>
+
+        <div class="col-md-8  mb-3">
+          <select class="custom-select custom-select" formControlName="location">
+            <option>Select Location</option>
+            <option *ngFor="let list of branchList" value="{{list.name}}">{{list.name}}</option>
+
+          </select>
+          <div class="valid-tooltip"> Looks good! </div>
+        </div>
+
+      </div>
+      <!-- .form-row -->
+
+      <!-- .form-row -->
+      <div class="form-row mb-3">
+        <div class="col-md-3 mb-3">
+          <label class="form-control-label">Documents</label>
+        </div>
+
+        <div class="col-md-8  mb-3">
+          <div class="custom-file">
+            <input type="file" accept="image/*" (change)="onSelectedFile($event)" class="custom-file-input is-invalid">
+            <label class="custom-file-label"><strong>Choose a file</strong>
+            </label>
+
+          </div>
+        </div>
+
+      </div>
+      <!-- .form-row -->
+
+
+      <div class="form-row">
+        <div class="col-md-11">
+          <div class="form-actions float-right">
+            <button (click)="createTicket(form.value)" class="btn btn-primary  btn-block"
+              [disabled]="submitted == true">
+              <span [className]="submitted ? 'spinner-border spinner-border-sm' : ''" role="status"
+                aria-hidden="true"></span>Create Ticket</button>
+          </div>
+        </div>
+
+      </div>
+
+
+
+
+    </form>
+  </div>
+
+
+</div>

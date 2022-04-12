@@ -1,0 +1,208 @@
+<div class="row">
+  <div class="col-md-9">
+
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a>Home</a></li>
+        <li class="breadcrumb-item"><a>Users</a></li>
+        <li class="breadcrumb-item active">Manage</li>
+      </ol>
+    </nav>
+
+  </div>
+
+  <div class="col-md-3">
+    <ol class="float-right">
+      <button class="btn btn-sm btn-primary " data-toggle="modal" data-target="#exampleModal">Add User</button>
+    </ol>
+  </div>
+</div>
+
+<!--  -->
+
+
+<div class="card card-fluid">
+  <!-- .card-header -->
+
+  <!-- .card-body -->
+  <div class="card-body">
+
+    <div class="row">
+      <div class="col-xl-12 col-md-12">
+        <!-- .card -->
+        <div class="card card-fluid">
+
+
+          <div class="form-group">
+            <!-- .input-group -->
+            <div class="input-group input-group-alt">
+              <!-- .input-group-prepend -->
+              <div class="input-group-prepend">
+                <select class="custom-select">
+                  <!-- <option selected=""> Filter By </option> -->
+                  <option selected> Search User </option>
+                </select>
+              </div><!-- /.input-group-prepend -->
+              <!-- .input-group -->
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><span class="oi oi-magnifying-glass"></span></span>
+                </div><input type="text" class="form-control" placeholder="Search a User">
+              </div><!-- /.input-group -->
+            </div><!-- /.input-group -->
+          </div>
+
+
+          <!-- .table-responsive -->
+          <div class="table-responsive">
+            <!-- .table -->
+            <table class="table table-hover table-bordered">
+              <!-- thead -->
+              <thead class="thead-light">
+                <tr>
+                  <th>#</th>
+                  <th>Name </th>
+                  <th> Phone </th>
+                  <th> Email </th>
+                  <th> Organisation </th>
+                  <th> User Type </th>
+                  <th> Date </th>
+                  <th> Action </th>
+                </tr>
+
+              </thead><!-- /thead -->
+              <!-- tbody -->
+              <tbody>
+
+                <tr *ngFor="let list of userList;let i=index">
+                  <td>{{i+1}}</td>
+                  <td> {{list.name}} </td>
+                  <td> {{list.phone}} </td>
+                  <td> {{list.email}} </td>
+                  <td> {{list?.organisation?.name}} </td>
+                  <td> {{list?.userType?.name}} </td>
+                  <td> {{list.dateCreated | date}}</td>
+                  <td>
+                    <a [routerLink]="['/home/course/questions/', list.id]" class="btn btn-sm btn-icon btn-secondary">
+                      <i class="far fa-edit"></i>
+                      <span class="sr-only">edit</span>
+                    </a>
+
+                    <a (click)="deleteUser(list.id)" class="btn btn-sm btn-icon btn-secondary">
+                      <i class="fa fa-trash"></i>
+                      <span class="sr-only">delete</span>
+                    </a>
+                  </td>
+
+                </tr><!-- /tr -->
+
+              </tbody><!-- /tbody -->
+            </table><!-- /.table -->
+          </div><!-- /.table-responsive -->
+
+
+        </div><!-- /.card -->
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add User</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <form [formGroup]="form">
+        <div class="modal-body">
+          <div class="form-row">
+            <div class="col">
+              <div class="form-group mb-4">
+                <label class="d-block text-left">Name</label>
+                <input type="text" class="form-control form-control" placeholder="Name" formControlName="name">
+              </div><!-- /.form-group -->
+            </div>
+
+            <div class="col">
+              <!-- .form-group -->
+              <div class="form-group mb-4">
+                <label class="d-block text-left">Phone</label>
+                <input type="text" class="form-control form-control" placeholder="+234 080 000 000 0000"
+                  formControlName="phone">
+              </div><!-- /.form-group -->
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="col">
+              <!-- .form-group -->
+              <div class="form-group mb-4">
+                <label class="d-block text-left">Email</label>
+                <input type="text" class="form-control form-control" placeholder="example@email.com"
+                  formControlName="email">
+              </div><!-- /.form-group -->
+            </div>
+
+            <div class="col">
+              <!-- .form-group -->
+              <div class="form-group mb-4">
+                <label class="d-block text-left">Organisation</label>
+                <select class="custom-select custom-select" formControlName="organisation">
+                  <option>Select Organisation</option>
+                  <option *ngFor="let list of organisationList" value="{{list.name}}">{{list.name}}</option>
+                </select>
+              </div><!-- /.form-group -->
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="col">
+              <!-- .form-group -->
+              <div class="form-group mb-4">
+                <label class="d-block text-left">Branch</label>
+                <select class="custom-select custom-select" formControlName="branch">
+                  <option>Select Branch</option>
+                  <option *ngFor="let list of branchList" value="{{list.name}}">{{list.name}}</option>
+                </select>
+              </div><!-- /.form-group -->
+            </div>
+
+            <div class="col">
+              <!-- .form-group -->
+              <div class="form-group mb-4">
+                <label class="d-block text-left">User Type</label>
+                <select class="custom-select custom-select" formControlName="userType">
+                  <option>Select User Type</option>
+                  <option *ngFor="let list of userTypeList" value="{{list.name}}">{{list.name}}</option>
+                </select>
+              </div><!-- /.form-group -->
+            </div>
+
+
+            <div class="col">
+              <!-- .form-group -->
+              <div class="form-group mb-4">
+                <label class="d-block text-left">Password</label>
+                <input type="password" class="form-control form-control" placeholder="********"
+                  formControlName="password">
+              </div><!-- /.form-group -->
+            </div>
+          </div>
+        </div>
+        <hr>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" (click)="addUser()">Save changes</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

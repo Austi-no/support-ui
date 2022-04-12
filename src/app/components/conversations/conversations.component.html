@@ -1,0 +1,102 @@
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a>Home</a></li>
+    <li class="breadcrumb-item"><a>Support</a></li>
+    <li class="breadcrumb-item active">Conversations</li>
+  </ol>
+</nav>
+<!--  -->
+
+<div class="card card-fluid mb-0">
+  <!-- .conversations -->
+
+  <div role="log" class="conversations">
+    <!-- .conversation-list -->
+    <ul class="conversation-list">
+      <!-- .conversation-divider -->
+      <li class="log-divider">
+        <span><i class="far fa-fw fa-comment-alt"></i> Conversation on <strong>#{{ticketData?.ticketNo}}</strong> -
+          {{ticketData?.title}}
+        </span>
+      </li><!-- /.conversation-divider -->
+      <div class="alert alert-warning" role="alert">
+        <h6 class="alert-heading"><strong>#{{ticketData?.ticketNo}}</strong> -
+          {{ticketData?.title}} <span class="badge bg-green text-white ml-2"> {{ticketData?.status}}</span> <span
+            class="badge bg-danger text-white ml-2 float-right" (click)="closeTicket()"> Close Ticket</span></h6>
+        <p>{{ticketData?.description}}</p>
+
+      </div>
+      <!-- <div class="col-2">
+        <button class="btn btn-outline-primary">Close ticket</button>
+      </div> -->
+
+      <div *ngFor="let list of ticketConversations">
+        <!-- .conversation-inbound -->
+        <li class="conversation-inbound mb-2" *ngIf="list.assignedUser ">
+          <div class="conversation-avatar">
+            <a href="#" class="tile tile-circle bg-teal">AD</a>
+          </div>
+          <div class="conversation-message">
+            <div class="conversation-message-text"> {{list.message}} </div>
+            <div class="conversation-meta"> {{list?.assignedUser?.name}} · {{list.updatedAt | date:'medium'}} </div>
+          </div>
+          <div class="conversation-actions dropdown">
+            <button class="btn btn-sm btn-icon btn-light" data-toggle="dropdown"><i
+                class="fa fa-fw fa-ellipsis-h"></i></button>
+            <div class="dropdown-menu">
+              <div class="dropdown-arrow ml-n1"></div><button type="button" class="dropdown-item">Copy text</button>
+              <button type="button" class="dropdown-item">Edit</button> <button type="button"
+                class="dropdown-item">Reply</button> <button type="button" class="dropdown-item">Remove</button>
+            </div>
+          </div>
+        </li><!-- /.conversation-inbound -->
+
+        <!-- .conversation-outbound -->
+        <li class="conversation-outbound conversation-faux mb-2" *ngIf="list.client">
+          <div class="conversation-actions dropdown">
+            <button class="btn btn-sm btn-icon btn-light" data-toggle="dropdown"><i
+                class="fa fa-fw fa-ellipsis-h"></i></button>
+            <div class="dropdown-menu">
+              <div class="dropdown-arrow ml-n1"></div><button type="button" class="dropdown-item">Copy text</button>
+              <button type="button" class="dropdown-item">Edit</button> <button type="button"
+                class="dropdown-item">Reply</button> <button type="button" class="dropdown-item">Remove</button>
+            </div>
+          </div>
+          <div class="conversation-message">
+            <div class="conversation-message-text"> {{list.message}} </div>
+            <div class="conversation-meta">{{list?.client?.name}} · {{list.updatedAt | date:'medium'}} </div>
+          </div>
+        </li><!-- /.conversation-outbound -->
+
+
+      </div>
+
+      <!-- <li class="log-divider">
+        <span><i class="fa fa-fw fa-user-plus"></i> 14th November 2020 @ 5:06 PM</span>
+      </li> -->
+    </ul><!-- /.conversation-list -->
+
+    <div class="message-publisher"
+      *ngIf="loggedInUser.userType.name=='client'||loggedInUser.userType.name=='client admin'">
+      <!-- form -->
+      <form [formGroup]="form">
+        <!-- .media -->
+        <div class="media mb-1">
+          <div class="btn btn-light btn-icon fileinput-button">
+            <i class="fa fa-paperclip"></i> <input type="file" id="pm-attachment" name="pmAttachment[]" multiple="">
+          </div>
+          <div class="media-body">
+            <input type="text" formControlName="message" class="form-control border-1 shadow-none"
+              placeholder="Type a message">
+          </div>
+          <div>
+            <button (click)="sendMessage()" class="btn btn-outline-primary  btn-block" [disabled]="submitted == true">
+              <span [className]="submitted ? 'spinner-border spinner-border-sm' : ''" role="status"
+                aria-hidden="true"></span><i class="far fa-paper-plane"></i></button>
+          </div>
+        </div><!-- /.media -->
+      </form><!-- /form -->
+    </div>
+  </div><!-- /.conversations -->
+
+</div>

@@ -1,0 +1,77 @@
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a>Home</a></li>
+    <li class="breadcrumb-item"><a>Support</a></li>
+    <li class="breadcrumb-item active">Tickets</li>
+  </ol>
+</nav>
+<!--  -->
+
+
+<div class="section-block">
+  <!-- grid row -->
+  <div class="row mb-4">
+    <!-- .col -->
+    <div class="col">
+      <!-- .has-clearable -->
+      <div class="has-clearable">
+        <button type="button" class="close" aria-label="Close"><span aria-hidden="true"><i
+              class="fa fa-times-circle"></i></span></button> <input type="text" class="form-control"
+          placeholder="Search">
+      </div><!-- /.has-clearable -->
+    </div><!-- /.col -->
+    <!-- .col-auto -->
+    <div class="col-auto">
+      <!-- invite members -->
+      <div class="dropdown">
+        <button (click)="gotoOpenNewTicket()" class="btn btn-primary" data-toggle="dropdown" data-display="static"
+          aria-haspopup="true" aria-expanded="false"><i class="fas fa-user-plus mr-1"></i> Open New Ticket</button>
+        <!-- .dropdown-menu -->
+        <div class="dropdown-menu dropdown-menu-right dropdown-menu-rich stop-propagation">
+          <div class="dropdown-arrow"></div>
+          <div class="dropdown-header"> Add members </div>
+          <div class="form-group px-3 py-2 m-0">
+            <input type="text" class="form-control" placeholder="e.g. @bent10" data-toggle="tribute"
+              data-remote="assets/data/tribute.json" data-menu-container="#people-list" data-item-template="true"
+              data-autofocus="true" data-tribute="true"> <small class="form-text text-muted">Search people by username
+              or email address to invite them.</small>
+          </div>
+          <div id="people-list" class="tribute-inline stop-propagation"></div><a href="#" class="dropdown-footer">Invite
+            member by link <i class="far fa-clone"></i></a>
+        </div><!-- /.dropdown-menu -->
+      </div><!-- /invite members -->
+    </div><!-- /.col-auto -->
+  </div><!-- /grid row -->
+  <!-- .card -->
+  <div class="card mb-2" *ngFor="let list of ticketList">
+    <!-- .card-body -->
+    <div class="card-body" style="cursor: pointer;" [routerLink]="['/support/conversation/', list.ticketNo]">
+      <!-- grid row -->
+      <div class="row align-items-center">
+
+        <!-- grid column -->
+        <div class="col">
+          <h3 class="card-title">
+            <a>#{{list.ticketNo}} - {{list.title}}</a> <small class="text-muted">
+              <strong> @</strong>{{list?.user?.name}}</small>
+            <span *ngIf="superAdmin" class="badge badge-outline-primary text-white ml-2">
+              {{list?.organisation?.name}}</span>
+          </h3>
+          <h6 class="card-subtitle text-muted"> Last Updated: {{list.updatedAt| date:'medium'}} </h6>
+
+        </div><!-- /grid column -->
+        <!-- /grid column -->
+        <div class="col-auto">
+          <i [routerLink]="['/support/conversation/', list.ticketNo]" class="far fa-comment-alt"></i>
+          <span class="badge bg-green text-white ml-2"> {{list.status}}</span>
+
+        </div><!-- /grid column -->
+      </div><!-- /grid row -->
+    </div><!-- /.card-body -->
+  </div><!-- /.card -->
+  <!-- .card -->
+
+
+
+
+</div>
